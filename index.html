@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sewa bot wonderland</title>
+    <script src="https://cdn.jsdelivr.net/npm/qrcode/build/qrcode.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(to right, #f4f4f4, #e4e4e4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            overflow: auto;
+            /* Allow vertical scrolling */
+        }
+
+        video.background-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            z-index: -1;
+            transform: translate(-50%, -50%);
+            background-size: cover;
+            opacity: 0.5;
+            /* Adjust transparency */
+        }
+
+        audio.background-audio {
+            display: none;
+        }
+
+        .header-image {
+            width: 100%;
+            max-width: 600px;
+            margin: 20px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .product-container {
+            display: flex;
+            overflow-x: auto;
+            width: 90%;
+            padding: 20px;
+            background: rgba(255, 255, 255, 0);
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0);
+            margin-bottom: 20px;
+            /* Ensure spacing between sections */
+        }
+
+        .product,
+        .sub-product {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 20px;
+            margin: 10px;
+            border: 1px solid #ccc;
+            border-radius: 10px;
+            min-width: 200px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .product h2,
+        .sub-product h3 {
+            margin-bottom: 10px;
+        }
+
+        .product .price,
+        .sub-product .price {
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+
+        .product button,
+        .sub-product button {
+            background-color: #6a11cb;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .product button:hover,
+        .sub-product button:hover {
+            background-color: #2575fc;
+        }
+
+        .sub-products {
+            display: flex;
+            overflow-x: auto;
+            width: 90%;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .container {
+            display: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 400px;
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            font-size: 16px;
+            color: #555;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0 20px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        #qrcode {
+            margin-top: 20px;
+        }
+
+        .error {
+            color: red;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        #download-btn,
+        #confirm-btn {
+            margin: 10px auto;
+            display: none;
+            background-color: #6a11cb;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        #download-btn:hover,
+        #confirm-btn:hover {
+            background-color: #00FF00;
+        }
+    </style>
+</head>
+
+<body>
+    <video autoplay muted loop class="background-video">
+        <source src="https://pomf2.lain.la/f/xll0kppy.mp4" type="video/mp4">
+    </video>
+
+
+    <img src="https://files.catbox.moe/f8lg55.jpg" alt="Bot Wonderland" class="header-image">
+    
+     <div class="product-container">
+        <div class="product">
+            <h2>7 Day Premium</h2>
+            <p class="price">Rp.8.000</p>
+            <button onclick="redirectToPayment(8000)">Beli</button>
+        </div>
+        <div class="product">
+            <h2>30 Day Premium</h2>
+            <p class="price">Rp.18.000</p>
+            <button onclick="redirectToPayment(18000)">Beli</button>
+        </div>
+        <div class="product">
+            <h2>Permanen Day Premium</h2>
+            <p class="price">Rp.250.000</p>
+            <button onclick="redirectToPayment(250000)">Beli</button>
+        </div>
+    </div>
+
+    
+        <!-- Product tambahan open sewa bot WhatsApp -->
+        <div class="product-container">
+            <div class="product">
+                <h2>Open Sewa Bot WhatsApp</h2>
+                <p>Keuntungan Sewa:</p>
+                <ul style="text-align: left; margin: 0 auto; max-width: 300px;">
+                    <li>=> Download all vid sosmed</li>
+                    <li>=> Antilink WA no kick</li>
+                    <li>=> Antilink all sosmed</li>
+                    <li>=> QC, Mali, Smeme, Sticker, Tweetgen</li>
+                    <li>=> AI ask, AI GPT, AI Voice, AI Gemini</li>
+                    <li>=> Hidetag, Tagall, Totag, Tagadmin</li>
+                    <li>=> HD, HDR, Remini, Upscale, HDvid</li>
+                    <li>=> Set welcome/out, total pesan</li>
+                    <li>=> YTA, YTS, YTPLay, GHStalk, IGStalk</li>
+                    <li>=> Akses premium fitur</li>
+                    <li>=> Akses prib bot</li>
+                    <li>=> Unlimited chat AI</li>
+                </ul>
+                <div class="sub-products">
+                    <div class="sub-product">
+                        <h3>Sewa VIP 7 Hari</h3>
+                        <p class="price">Rp.9.000</p>
+                        <button onclick="redirectToPayment(9000)">Beli</button>
+                    </div>
+                    <div class="sub-product">
+                        <h3>Sewa VIP 30 Hari</h3>
+                        <p class="price">Rp.20.000</p>
+                        <button onclick="redirectToPayment(20000)">Beli</button>
+                    </div>
+                    <div class="sub-product">
+                        <h3>Sewa VIP 120 Hari Bonus Premium 15 Hari</h3>
+                        <p class="price">Rp.95.000</p>
+                        <button onclick="redirectToPayment(95000)">Beli</button>
+                    </div>
+                    <div class="sub-product">
+                        <h3>Sewa VIP Permanen Bonus Premium 30 Hari</h3>
+                        <p class="price">Rp.285.000</p>
+                        <button onclick="redirectToPayment(285000)">Beli</button>
+                    </div>
+                </div>
+                <p>Permanen? Chat Owner</p>
+                <p>Contact Owner:</p>
+                <p>WA: <a href="https://wa.me/6285176729049">https://wa.me/6285176729049</a></p>
+                <p>TELE: <a href="https://t.me/">t.me/</a></p>
+            </div>
+        </div>
+
+        <div class="container" id="payment-container">
+            <h2>Pembayaran</h2>
+            <label for="amount">Nominal Pembayaran (dalam Rupiah):</label>
+            <input type="number" id="amount" placeholder="Masukkan nominal" min="1000" readonly>
+            <div class="error" id="error-message"></div>
+            <button onclick="generateQR()">Generate QR</button>
+
+            <h3>Kode QR:</h3>
+            <canvas id="qrcode"></canvas>
+            <button id="download-btn">Download QR Code</button>
+            <p id="qr-instruction"></p>
+            <button id="confirm-btn">Konfirmasi Pembayaran</button>
+        </div>
+
+        <script>
+            function redirectToPayment(amount) {
+                document.getElementById('payment-container').style.display = 'block';
+                document.getElementById('amount').value = amount;
+            }
+
+            function convertCRC16(str) {
+                let crc = 0xFFFF;
+                for (let i = 0; i < str.length; i++) {
+                    crc ^= str.charCodeAt(i) << 8;
+                    for (let j = 0; j < 8; j++) {
+                        if ((crc & 0x8000) !== 0) {
+                            crc = (crc << 1) ^ 0x1021;
+                        } else {
+                            crc <<= 1;
+                        }
+                    }
+                }
+                crc &= 0xFFFF;
+                return crc.toString(16).toUpperCase().padStart(4, '0');
+            }
+
+            function p(qrisData, paymentAmount) {
+                qrisData = qrisData.slice(0, -4);
+                const step1 = qrisData.replace("010211", "010212");
+                const step2 = step1.split("5802ID");
+                const uang = "54" + ("0" + paymentAmount.length).slice(-2) + paymentAmount;
+                const completeData = step2[0] + uang + step2[1] + convertCRC16(step2[0] + uang + step2[1]);
+                return completeData;
+            }
+
+            function generateQR() {
+                const amount = document.getElementById('amount').value;
+                const errorMessage = document.getElementById('error-message');
+                const qrCodeCanvas = document.getElementById('qrcode');
+                errorMessage.textContent = "";
+                qrCodeCanvas.getContext('2d').clearRect(0, 0, qrCodeCanvas.width, qrCodeCanvas.height);
+
+                if (!amount || amount <= 0 || amount < 1000) {
+                    errorMessage.textContent = 'Masukkan nominal yang valid (minimal Rp 1000).';
+                    return;
+                }
+
+                const qrisData = '00020101021126570011ID.DANA.WWW011893600915343231899802094323189980303UMI51440014ID.CO.QRIS.WWW0215ID10232595345770303UMI5204594553033605802ID5910Dix Trends6015Kab. Pangandara6105463966304B83B';
+                const qrCodeData = p(qrisData, amount);
+
+                QRCode.toCanvas(qrCodeCanvas, qrCodeData, {
+                    width: 256,
+                    colorDark: "#000000",
+                    colorLight: "#ffffff",
+                }, function(error) {
+                    if (error) {
+                        console.error(error);
+                        errorMessage.textContent = 'Terjadi kesalahan saat membuat kode QR.';
+                    } else {
+                        console.log('QR Code berhasil dibuat!');
+                        const qrInstruction = document.getElementById('qr-instruction');
+                        qrInstruction.textContent = 'Silahkan scan kode QR di atas untuk pembayaran melalui aplikasi dana, gopay, atau lainnya';
+
+                        const downloadBtn = document.getElementById('download-btn');
+                        downloadBtn.style.display = 'block';
+                        downloadBtn.addEventListener('click', function() {
+                            const link = document.createElement('a');
+                            link.download = 'qr_code.png';
+                            link.href = qrCodeCanvas.toDataURL();
+                            link.click();
+                        });
+
+                        const confirmBtn = document.getElementById('confirm-btn');
+                        confirmBtn.style.display = 'block';
+                        confirmBtn.addEventListener('click', function() {
+                            const waLink = `https://wa.me/6285176729049?text=Konfirmasi%20pembayaran%20dengan%20nominal%20Rp${amount}`;
+                            window.open(waLink, '_blank');
+                        });
+                    }
+                });
+            }
+        </script>
+</body>
+
+</html>
